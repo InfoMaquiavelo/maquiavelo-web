@@ -57,10 +57,11 @@
   .hero { position:relative; background:var(--navy); color:#fff; padding:clamp(64px, 8vw, 104px) 0 clamp(56px, 7vw, 96px); overflow:hidden; }
   .hero::before { content:""; position:absolute; right:-80px; top:-60px; width:520px; height:520px; border-radius:50%; background:radial-gradient(circle, rgba(238,74,70,.35) 0%, rgba(238,74,70,0) 65%); }
   .hero::after { content:""; position:absolute; left:-120px; bottom:-160px; width:420px; height:420px; border-radius:50%; background:radial-gradient(circle, rgba(169,211,234,.22) 0%, rgba(169,211,234,0) 65%); }
-  .hero .wrap { position:relative; display:grid; grid-template-columns:7fr 5fr; gap:48px; align-items:center; }
-  .hero h1 { font-size:clamp(40px, 5.2vw, 72px); line-height:1.04; letter-spacing:-.015em; text-wrap:pretty; }
+  .hero .wrap { position:relative; display:grid; grid-template-columns:1fr; }
+  .hero-text { max-width:900px; }
+  .hero h1 { font-size:clamp(40px, 5.6vw, 80px); line-height:1.04; letter-spacing:-.015em; text-wrap:pretty; }
   .hero h1 span { color:var(--ice); }
-  .hero p.lead { max-width:620px; font-size:clamp(18px, 1.6vw, 21px); color:var(--mist); }
+  .hero p.lead { max-width:680px; font-size:clamp(18px, 1.6vw, 21px); color:var(--mist); }
   .hero-text { display:flex; flex-direction:column; gap:26px; }
   .hero-cta { display:flex; flex-wrap:wrap; gap:14px; }
   .pulse { animation:pulse 2.4s ease-in-out infinite; }
@@ -71,6 +72,47 @@
   .browser-bar b { margin-left:10px; flex:1; background:var(--gray); border-radius:6px; padding:4px 10px; font-size:12px; font-weight:400; color:var(--mute); }
   .browser img { border-radius:8px; }
   .hero-caption { margin-top:14px; font-size:14px; color:var(--ice); }
+
+  /* HUB (hero) */
+  .hub-wrap { display:flex; justify-content:center; }
+  .hub { position:relative; width:520px; height:460px; max-width:100%; }
+  .hub-lines { position:absolute; inset:0; width:100%; height:100%; }
+  .hl { stroke:rgba(169,211,234,.55); stroke-width:1.5; stroke-dasharray:400; stroke-dashoffset:400; animation:draw 1.4s .4s ease forwards; }
+  .hp { fill:var(--coral); opacity:0; animation:fadein .4s 1.6s forwards; }
+  .ring { stroke:rgba(255,255,255,.08); stroke-width:1; }
+  .r1 { animation:spin 40s linear infinite; transform-origin:260px 230px; stroke-dasharray:6 10; }
+  .r2 { animation:spin 70s linear infinite reverse; transform-origin:260px 230px; stroke-dasharray:2 14; }
+  .hub-center { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:200px; height:200px; border-radius:50%; background:var(--coral); box-shadow:0 0 0 14px rgba(238,74,70,.18), 0 30px 60px rgba(0,0,0,.35); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; text-align:center; padding:20px; animation:float 6s ease-in-out infinite; }
+  .hub-center img { width:140px; height:auto; }
+  .hub-center span { font-size:13px; font-weight:700; letter-spacing:.06em; color:#fff; opacity:.9; }
+  .hub-node { position:absolute; width:190px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); backdrop-filter:blur(6px); border-radius:12px; padding:14px 16px; display:flex; flex-direction:column; gap:3px; color:#fff; transition:transform .25s, background .25s, border-color .25s; animation:nodein .6s both; }
+  .hub-node:hover { transform:translateY(-4px); background:rgba(255,255,255,.14); border-color:var(--coral); color:#fff; }
+  .hub-node small { font-size:11px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--coral); }
+  .hub-node strong { font-size:17px; line-height:1.15; }
+  .hub-node em { font-style:normal; font-size:13px; color:var(--ice); }
+  .n1 { left:0; top:0; animation-delay:1.7s; } .n2 { right:0; top:0; animation-delay:1.9s; } .n3 { left:50%; bottom:0; transform:translateX(-50%); animation-name:nodein3; animation-delay:2.1s; }
+  .n3:hover { transform:translate(-50%,-4px); }
+  @keyframes draw { to { stroke-dashoffset:0; } }
+  @keyframes fadein { to { opacity:1; } }
+  @keyframes nodein { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
+  @keyframes nodein3 { from { opacity:0; transform:translate(-50%,10px); } to { opacity:1; transform:translateX(-50%); } }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  @keyframes float { 0%,100% { transform:translate(-50%,-50%); } 50% { transform:translate(-50%,calc(-50% - 8px)); } }
+  @media (max-width:1024px) { .hub { width:100%; height:440px; } }
+  @media (max-width:640px) { .hub { height:420px; } .hub-node { width:150px; padding:12px; } .hub-node strong { font-size:15px; } .hub-center { width:160px; height:160px; } .hub-center img { width:110px; } }
+  @media (prefers-reduced-motion: reduce) { .hl { stroke-dashoffset:0; animation:none; } .hub-node { animation:none; } .r1,.r2,.hub-center { animation:none; } }
+
+  /* UMBRELLA (white) */
+  .umbrella { background:#fff; padding:clamp(56px,7vw,88px) 0 24px; border-bottom:1px solid #EEF1F4; }
+  .umbrella .hub-wrap { margin-top:36px; }
+  .umbrella .hub { transform:scale(1.18); transform-origin:top center; margin-bottom:80px; }
+  @media (max-width:1024px) { .umbrella .hub { transform:none; margin-bottom:0; } }
+  .umbrella .hl { stroke:rgba(3,58,91,.35); }
+  .umbrella .ring { stroke:rgba(3,58,91,.10); }
+  .umbrella .hub-center { box-shadow:0 0 0 14px rgba(238,74,70,.12), 0 24px 50px rgba(3,58,91,.22); }
+  .umbrella .hub-node { background:#fff; border:1.5px solid var(--line); color:var(--navy); box-shadow:0 10px 30px rgba(3,58,91,.08); backdrop-filter:none; }
+  .umbrella .hub-node:hover { background:#fff; border-color:var(--coral); color:var(--navy); box-shadow:0 18px 40px rgba(3,58,91,.14); }
+  .umbrella .hub-node em { color:var(--mute); }
 
   /* STATS */
   .stats { border-bottom:1px solid #EEF1F4; }
@@ -160,7 +202,10 @@
   .filters .chip { background:#fff; border-color:#fff; } .filters .chip.on { background:var(--navy); border-color:var(--navy); }
   .cases { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:36px; }
   .case { background:#fff; padding:30px; display:flex; flex-direction:column; gap:12px; }
+  .case-top { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; }
+  .case .brand { height:44px; width:auto; max-width:130px; object-fit:contain; flex:none; }
   .case.hide { display:none; }
+  .cases:not(.all) .case.more { display:none; }
   .case .eyebrow { font-size:11px; }
   .case h3 { font-size:28px; line-height:1.1; }
   .case b { font-size:clamp(34px,3vw,42px); line-height:1; color:var(--coral); }
@@ -186,6 +231,15 @@
   .person span { font-size:15px; color:var(--mist); }
   .person a { font-size:14px; color:var(--ice); display:inline-flex; gap:6px; align-items:center; }
   .women { font-size:15px; color:var(--ice); margin-top:8px; }
+
+  /* LINKEDIN */
+  .li-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:36px; }
+  .li-card { background:var(--gray); border-radius:12px; padding:10px; display:flex; flex-direction:column; gap:8px; }
+  .li-card iframe { display:block; border-radius:8px; background:#fff; }
+  .li-card a { font-size:14px; font-weight:700; padding:6px 8px 2px; }
+  .li-card a:hover { color:var(--coral); }
+  @media (max-width:1024px) { .li-grid { grid-template-columns:1fr 1fr; } }
+  @media (max-width:640px) { .li-grid { grid-template-columns:1fr; } }
 
   /* FAQ */
   .faq-grid { display:grid; grid-template-columns:4fr 8fr; gap:40px; }
@@ -247,7 +301,7 @@
     </nav>
     <div class="nav-right">
       <div class="lang"><button type="button" data-lang="en" class="on">EN</button><span style="color:#B9C2CB">/</span><button type="button" data-lang="es">ES</button></div>
-      <a href="#contact" class="btn btn-coral" data-i18n="navcta">Let's talk</a>
+      <a href="https://outlook.office.com/bookwithme/user/ad0e690f397043a7868079bd4b9964fb@maquiavelo.com/meetingtype/m6gWiFK4EkKyClo1vrA0qA2?anonymous&amp;ismsaljsauthenabled" target="_blank" rel="noopener" class="btn btn-coral" data-i18n="navcta">Let's talk</a>
       <button class="burger" type="button" aria-label="Menu" id="burger"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -268,16 +322,32 @@
       <h1 class="reveal" data-i18n="h_title">Expand into new markets.<br><span>Without building a sales team in each one.</span></h1>
       <p class="lead reveal" data-i18n="h_lead">One sales partner, multiple markets. We plug into your organization as your international sales team: local reps, buyer relationships and a full pipeline you can see every week.</p>
       <div class="hero-cta reveal">
-        <a href="#contact" class="btn btn-coral pulse"><span data-i18n="h_cta1">Book a 20-min call</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+        <a href="https://outlook.office.com/bookwithme/user/ad0e690f397043a7868079bd4b9964fb@maquiavelo.com/meetingtype/m6gWiFK4EkKyClo1vrA0qA2?anonymous&amp;ismsaljsauthenabled" target="_blank" rel="noopener" class="btn btn-coral pulse"><span data-i18n="h_cta1">Book a 30-min call</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
         <a href="#cases" class="btn btn-ghost" data-i18n="h_cta2">See success stories</a>
       </div>
     </div>
-    <div class="reveal">
-      <div class="browser">
-        <div class="browser-bar"><i style="background:#EE4A46"></i><i style="background:#F5B84B"></i><i style="background:#5AC48A"></i><b>app.maqmailing.io</b></div>
-        <img src="img/app-pipeline.jpg" alt="MaqMailing pipeline view" width="1400" height="634">
+  </div>
+</section>
+
+<section class="umbrella">
+  <div class="wrap">
+    <div class="head reveal" style="text-align:center;margin:0 auto;align-items:center">
+      <span class="eyebrow" data-i18n="um_eye">The Maquiavelo group</span>
+      <h2 class="h2" data-i18n="um_t">One partner. Three ways in.</h2>
+      <p class="sub" data-i18n="um_sub">Sales execution, market-entry strategy and the software behind both, under one roof. Click a unit to jump to it.</p>
+    </div>
+    <div class="reveal hub-wrap">
+      <div class="hub">
+        <svg class="hub-lines" viewBox="0 0 520 460" fill="none" aria-hidden="true">
+          <path class="hl" d="M260 230 L110 96" /><path class="hl" d="M260 230 L410 96" /><path class="hl" d="M260 230 L260 392" />
+          
+          <circle class="ring r1" cx="260" cy="230" r="120"/><circle class="ring r2" cx="260" cy="230" r="180"/>
+        </svg>
+        <div class="hub-center"><img src="img/logo-white.png" alt="Maquiavelo"><span>Always Be Closing!</span></div>
+        <a href="#units" class="hub-node n1" data-tab="0"><small data-i18n="hub_n1s">01 · Sales</small><strong>Outsourced Sales Team</strong><em data-i18n="hub_n1e">Local reps who sell for you</em></a>
+        <a href="#units" class="hub-node n2" data-tab="1"><small data-i18n="hub_n2s">02 · Strategy</small><strong>Strategy &amp; Growth</strong><em data-i18n="hub_n2e">GO / WAIT / DO NOT ENTER</em></a>
+        <a href="#units" class="hub-node n3" data-tab="2"><small data-i18n="hub_n3s">03 · Software</small><strong>MaqMailing</strong><em data-i18n="hub_n3e">CRM &amp; outreach platform</em></a>
       </div>
-      <p class="hero-caption" data-i18n="h_cap">Your pipeline, fully visible: every lead by stage in MaqMailing, our own CRM and outreach platform.</p>
     </div>
   </div>
 </section>
@@ -314,7 +384,7 @@
           <div><svg viewBox="0 0 24 24" fill="none" stroke="#EE4A46" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="p0_c2">Monthly fee + commission on net sales · we win when you sell</span></div>
           <div><svg viewBox="0 0 24 24" fill="none" stroke="#EE4A46" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="p0_c3">Weekly calls, WhatsApp group and live Power BI dashboards</span></div>
         </div>
-        <a href="#contact" class="btn btn-coral" style="align-self:flex-start" data-i18n="p0_cta">Talk to the sales team</a>
+        <a href="https://outlook.office.com/bookwithme/user/ad0e690f397043a7868079bd4b9964fb@maquiavelo.com/meetingtype/m6gWiFK4EkKyClo1vrA0qA2?anonymous&amp;ismsaljsauthenabled" target="_blank" rel="noopener" class="btn btn-coral" style="align-self:flex-start" data-i18n="p0_cta">Talk to the sales team</a>
       </div>
       <div class="feat">
         <div><i><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17" cy="9" r="2.5"/><path d="M16 15.5a5 5 0 0 1 5.5 4.5"/></svg></i><strong data-i18n="f1t">Local sales team</strong><span data-i18n="f1s">Dedicated reps in-market representing your brand.</span></div>
@@ -333,7 +403,7 @@
         <p data-i18n="p1_p">Four modules, from market diagnosis to a sales-ready blueprint, that close the gap between how ready your brand <em>feels</em> and how viable the entry actually is. The deliverable is a commercial read, not a report: the <strong style="color:var(--navy)">Expansion Readiness Score™</strong> with one verdict.</p>
         <div class="verdict"><span class="go">GO</span><span>WAIT</span><span class="no">DO NOT ENTER</span></div>
         <span style="font-size:14px;color:var(--mute)" data-i18n="p1_mk">Markets covered: U.S. · Mexico · Brazil · Mercosur · Andean region · CEAM</span>
-        <a href="#contact" class="btn btn-coral" style="align-self:flex-start" data-i18n="p1_cta">Get your Expansion Readiness Score</a>
+        <a href="https://outlook.office.com/bookwithme/user/ad0e690f397043a7868079bd4b9964fb@maquiavelo.com/meetingtype/m6gWiFK4EkKyClo1vrA0qA2?anonymous&amp;ismsaljsauthenabled" target="_blank" rel="noopener" class="btn btn-coral" style="align-self:flex-start" data-i18n="p1_cta">Get your Expansion Readiness Score</a>
       </div>
       <div class="tiers">
         <div><small>Tier 1</small><strong>Market Screening</strong><em data-i18n="tr1e">Modules 1–2</em><span data-i18n="tr1s">Market diagnosis and fit: is this market worth a deeper look?</span></div>
@@ -416,23 +486,40 @@
       <div class="head"><span class="eyebrow" data-i18n="cs_eye">Success stories</span><h2 class="h2" data-i18n="cs_t">+50 brands taken into new markets across the U.S., LATAM and Europe.</h2></div>
       <div class="filters">
         <button class="chip on" type="button" data-filter="all" data-i18n="fl_all">All</button>
-        <button class="chip" type="button" data-filter="food" data-i18n="fl_food">Food &amp; Beverage</button>
-        <button class="chip" type="button" data-filter="care" data-i18n="fl_care">Personal Care</button>
-        <button class="chip" type="button" data-filter="home" data-i18n="fl_home">Household</button>
-        <button class="chip" type="button" data-filter="mfg" data-i18n="fl_mfg">Contract manufacturing</button>
+        <button class="chip" type="button" data-filter="food" data-i18n="fl_food">Food &amp; Beverage · 16</button>
+        <button class="chip" type="button" data-filter="care" data-i18n="fl_care">Personal Care · 5</button>
+        <button class="chip" type="button" data-filter="home" data-i18n="fl_home">Household · 3</button>
+        <button class="chip" type="button" data-filter="mfg" data-i18n="fl_mfg">Contract manufacturing · 1</button>
       </div>
     </div>
     <div class="cases">
-      <div class="card case reveal" data-cat="food"><span class="eyebrow" data-i18n="cs1e">Food &amp; Beverage · Guatemala → USA</span><h3>Alimentos Maravilla</h3><b data-i18n="cs1b">&lt; 2 months</b><p data-i18n="cs1p">After 15 years trying through distributors, we prospected supermarkets and convenience chains directly. Del Frutal, Señorial, Pro and Raptor entered two convenience-store chains in the U.S. Southeast in under two months; the project continues through a regional distributor network.</p><small data-i18n="cs1w">Direct prospecting · buyer meetings · distributor setup</small></div>
-      <div class="card case reveal" data-cat="food"><span class="eyebrow" data-i18n="cs2e">Coffee · Dominican Republic</span><h3>Kora Café (La Aurora)</h3><b data-i18n="cs2b">8 chains in 6 months</b><p data-i18n="cs2p">Mass-market launch: within six months the brand was listed in eight of the country's main supermarket and club-store chains. Pricing, assortment and buyer negotiation handled end to end.</p><small data-i18n="cs2w">Market launch · pricing · account management</small></div>
-      <div class="card case reveal" data-cat="care"><span class="eyebrow" data-i18n="cs3e">Multicultural hair care · DR → USA</span><h3>Capilo Pro</h3><b data-i18n="cs3b">5 states in 6 months</b><p data-i18n="cs3p">Launched in three mass-market chains (pharmacy and general merchandise) across Puerto Rico and the U.S. in six months, then expanded to five states: Florida, Arizona, California, Nevada and Texas.</p><small data-i18n="cs3w">Mass-market launch · multi-state expansion</small></div>
-      <div class="card case reveal" data-cat="care"><span class="eyebrow" data-i18n="cs4e">Multicultural skin care · USA</span><h3>Dermaline</h3><b data-i18n="cs4b">3 months to first chain</b><p data-i18n="cs4p">Mass-market introduction closed in three months with a national off-price chain and pharmacy channel; sales then extended into the Caribbean.</p><small data-i18n="cs4w">Retail introduction · Caribbean expansion</small></div>
-      <div class="card case reveal" data-cat="home"><span class="eyebrow" data-i18n="cs5e">Home fragrances · Vietnam → USA</span><h3 data-i18n="cs5t">Big Box Retailer (private label)</h3><b data-i18n="cs5b">Seasonal program in 6 months</b><p data-i18n="cs5p">Aroma Light private-label candles placed in the Christmas seasonal program of one of the largest U.S. grocery chains within six months.</p><small data-i18n="cs5w">Private label · seasonal program</small></div>
-      <div class="card case reveal" data-cat="food"><span class="eyebrow" data-i18n="cs6e">Dried fruit &amp; snacks · Turkey → Brazil</span><h3>Safe Food Corp (Sunny Fruit)</h3><b data-i18n="cs6b">6 premium chains</b><p data-i18n="cs6p">Premium positioning with a curated import portfolio of fruits not available in Brazil; listed in six premium supermarket chains, plus launch of the brand's Brazilian social media.</p><small data-i18n="cs6w">Go-to-market strategy · premium retail · social launch</small></div>
-      <div class="card case reveal" data-cat="care"><span class="eyebrow" data-i18n="cs7e">Intimate care · Italy → Mexico</span><h3>Organyc</h3><b data-i18n="cs7b">Mexico, from zero</b><p data-i18n="cs7p">No in-house commercial team: we opened the first conversations with the country's leading retail chains, built the distributor network and ran the long-term expansion plan as their outsourced sales team.</p><small data-i18n="cs7w">Retail prospecting · distributor network · expansion plan</small></div>
-      <div class="card case reveal" data-cat="food"><span class="eyebrow" data-i18n="cs8e">RTD +15% alcohol · USA → Brazil, DR, Mexico</span><h3>BuzzBallz</h3><b data-i18n="cs8b">3 markets, clean handover</b><p data-i18n="cs8p">Convenience-store distributors and importers engaged in three countries. After the brand was acquired, we ran a seven-month transition to the new owner's local team.</p><small data-i18n="cs8w">Distributor engagement · 7-month handover</small></div>
-      <div class="card case reveal" data-cat="mfg"><span class="eyebrow" data-i18n="cs9e">Contract manufacturing · Nonwovens · USA</span><h3>Premier Care Industries</h3><b data-i18n="cs9b">New brands in 6 months</b><p data-i18n="cs9p">Private-label development, formulation and manufacturing capabilities introduced to several U.S. consumer brands in six months.</p><small data-i18n="cs9w">B2B prospecting · brand partnerships</small></div>
+      <div class="card case reveal" data-cat="food"><div class="case-top"><span class="eyebrow" data-i18n="cs1e">Food &amp; Beverage · Guatemala → USA</span><img class="brand" src="img/brand-maravilla.png" alt="Alimentos Maravilla"></div><h3>Alimentos Maravilla</h3><b data-i18n="cs1b">&lt; 2 months</b><p data-i18n="cs1p">After 15 years trying through distributors, we prospected supermarkets and convenience chains directly. Del Frutal, Señorial, Pro and Raptor entered two convenience-store chains in the U.S. Southeast in under two months; the project continues through a regional distributor network.</p><small data-i18n="cs1w">Direct prospecting · buyer meetings · distributor setup</small></div>
+      <div class="card case reveal" data-cat="food"><div class="case-top"><span class="eyebrow" data-i18n="cs2e">Coffee · Dominican Republic</span><img class="brand" src="img/brand-kora.png" alt="Kora Café (La Aurora)"></div><h3>Kora Café (La Aurora)</h3><b data-i18n="cs2b">8 chains in 6 months</b><p data-i18n="cs2p">Mass-market launch: within six months the brand was listed in eight of the country's main supermarket and club-store chains. Pricing, assortment and buyer negotiation handled end to end.</p><small data-i18n="cs2w">Market launch · pricing · account management</small></div>
+      <div class="card case reveal" data-cat="care"><div class="case-top"><span class="eyebrow" data-i18n="cs3e">Multicultural hair care · DR → USA</span><img class="brand" src="img/brand-capilo.png" alt="Capilo Pro"></div><h3>Capilo Pro</h3><b data-i18n="cs3b">5 states in 6 months</b><p data-i18n="cs3p">Launched in three mass-market chains (pharmacy and general merchandise) across Puerto Rico and the U.S. in six months, then expanded to five states: Florida, Arizona, California, Nevada and Texas.</p><small data-i18n="cs3w">Mass-market launch · multi-state expansion</small></div>
+      <div class="card case reveal" data-cat="care"><div class="case-top"><span class="eyebrow" data-i18n="cs4e">Multicultural skin care · USA</span><img class="brand" src="img/brand-dermaline.png" alt="Dermaline"></div><h3>Dermaline</h3><b data-i18n="cs4b">3 months to first chain</b><p data-i18n="cs4p">Mass-market introduction closed in three months with a national off-price chain and pharmacy channel; sales then extended into the Caribbean.</p><small data-i18n="cs4w">Retail introduction · Caribbean expansion</small></div>
+      <div class="card case reveal" data-cat="home"><div class="case-top"><span class="eyebrow" data-i18n="cs5e">Home fragrances · Vietnam → USA</span><img class="brand" src="img/brand-bigbox.png" alt="Big Box Retailer (private label)"></div><h3 data-i18n="cs5t">Big Box Retailer (private label)</h3><b data-i18n="cs5b">Seasonal program in 6 months</b><p data-i18n="cs5p">Aroma Light private-label candles placed in the Christmas seasonal program of one of the largest U.S. grocery chains within six months.</p><small data-i18n="cs5w">Private label · seasonal program</small></div>
+      <div class="card case reveal" data-cat="food"><div class="case-top"><span class="eyebrow" data-i18n="cs6e">Dried fruit &amp; snacks · Turkey → Brazil</span><img class="brand" src="img/brand-sunnyfruit.png" alt="Safe Food Corp (Sunny Fruit)"></div><h3>Safe Food Corp (Sunny Fruit)</h3><b data-i18n="cs6b">6 premium chains</b><p data-i18n="cs6p">Premium positioning with a curated import portfolio of fruits not available in Brazil; listed in six premium supermarket chains, plus launch of the brand's Brazilian social media.</p><small data-i18n="cs6w">Go-to-market strategy · premium retail · social launch</small></div>
+      <div class="card case reveal" data-cat="care"><div class="case-top"><span class="eyebrow" data-i18n="cs7e">Intimate care · Italy → Mexico</span><img class="brand" src="img/brand-organyc.png" alt="Organyc"></div><h3>Organyc</h3><b data-i18n="cs7b">Mexico, from zero</b><p data-i18n="cs7p">No in-house commercial team: we opened the first conversations with the country's leading retail chains, built the distributor network and ran the long-term expansion plan as their outsourced sales team.</p><small data-i18n="cs7w">Retail prospecting · distributor network · expansion plan</small></div>
+      <div class="card case reveal" data-cat="food"><div class="case-top"><span class="eyebrow" data-i18n="cs8e">RTD +15% alcohol · USA → Brazil, DR, Mexico</span><img class="brand" src="img/brand-buzzballz.png" alt="BuzzBallz"></div><h3>BuzzBallz</h3><b data-i18n="cs8b">3 markets, clean handover</b><p data-i18n="cs8p">Convenience-store distributors and importers engaged in three countries. After the brand was acquired, we ran a seven-month transition to the new owner's local team.</p><small data-i18n="cs8w">Distributor engagement · 7-month handover</small></div>
+      <div class="card case reveal" data-cat="mfg"><div class="case-top"><span class="eyebrow" data-i18n="cs9e">Contract manufacturing · Nonwovens · USA</span><img class="brand" src="img/brand-premiercare.png" alt="Premier Care Industries"></div><h3>Premier Care Industries</h3><b data-i18n="cs9b">New brands in 6 months</b><p data-i18n="cs9p">Private-label development, formulation and manufacturing capabilities introduced to several U.S. consumer brands in six months.</p><small data-i18n="cs9w">B2B prospecting · brand partnerships</small></div>
+      <div class="card case reveal more" data-cat="food"><div class="case-top"><span class="eyebrow" data-i18n="cs10e">Supplements &amp; nutrition · USA</span><img class="brand" src="img/brand-genjoy.png" alt="Generation Joy (Reebok)"></div><h3>Generation Joy (Reebok)</h3><b data-i18n="cs10b">3 formulas, national reach</b><p data-i18n="cs10p">Sports nutrition system built on Reebok's legacy ([Ree]Energize, [Ree]Build, [Ree]Cover), introduced to specialty sports and online retailers across the U.S.</p><small data-i18n="cs10w">Retail prospecting · e-commerce placement</small></div>
+      <div class="card case reveal more" data-cat="food"><div class="case-top"><span class="eyebrow" data-i18n="cs11e">Baby food, frozen fruit · DR → USA</span><img class="brand" src="img/brand-locobebe.png" alt="Loco Bebé"></div><h3>Loco Bebé</h3><b data-i18n="cs11b">Natural &amp; premium channel</b><p data-i18n="cs11p">Organic baby pouches taken into the U.S.: brand positioning first, then a private-label and frozen-fruit strategy built around the client's capabilities; listed with premium, natural and club retailers.</p><small data-i18n="cs11w">Go-to-market strategy · private label · listings</small></div>
+      <div class="card case reveal more" data-cat="food"><div class="case-top"><span class="eyebrow" data-i18n="cs12e">Functional beverage · USA / DR → DR</span><img class="brand" src="img/brand-aqualit.png" alt="Aqualit"></div><h3>Aqualit</h3><b data-i18n="cs12b">All channels, one market</b><p data-i18n="cs12p">Hydration brand launched in the Dominican Republic: distributor partners identified and activated across modern trade, traditional trade and BaReCa.</p><small data-i18n="cs12w">Distributor mapping · channel strategy</small></div>
+      <div class="card case reveal more" data-cat="food"><div class="case-top"><span class="eyebrow" data-i18n="cs13e">Fruit beverage · DR → USA</span><img class="brand" src="img/brand-rica.png" alt="GTB – Rica"></div><h3>GTB – Rica</h3><b data-i18n="cs13b">Major U.S. retail entry</b><p data-i18n="cs13p">Leading Dominican juice brand: working with its U.S. distributor and representative to introduce Rica into major U.S. retailers and secure entry across key channels. Ongoing.</p><small data-i18n="cs13w">Retail introduction · distributor support</small></div>
+      <div class="card case reveal more" data-cat="food"><div class="case-top"><span class="eyebrow" data-i18n="cs14e">Olive oil &amp; olives · Greece → Brazil</span><img class="brand" src="img/brand-agrovim.png" alt="Agrovim (Iliada)"></div><h3>Agrovim (Iliada)</h3><b data-i18n="cs14b">High-end supermarkets</b><p data-i18n="cs14p">Award-winning Greek olive oil: after years of solo effort in Brazil, we leverage our network with high-end supermarkets to open new listings. Ongoing.</p><small data-i18n="cs14w">Premium retail prospecting</small></div>
+      <div class="card case reveal more" data-cat="food"><div class="case-top"><span class="eyebrow" data-i18n="cs15e">Palm oil · Ecuador → USA &amp; Central America</span><img class="brand" src="img/brand-lafabril.png" alt="La Fabril"></div><h3>La Fabril</h3><b data-i18n="cs15b">Private label for retailers</b><p data-i18n="cs15p">Ecuador's leading oils and fats manufacturer: go-to-market strategy for retail-packaged oils, tailored to private label with mass and discount retailers.</p><small data-i18n="cs15w">Go-to-market strategy · private label</small></div>
+      <div class="card case reveal more" data-cat="food"><div class="case-top"><span class="eyebrow" data-i18n="cs16e">Gourmet condiments · USA → DR &amp; Mexico</span><img class="brand" src="img/brand-croix.png" alt="Croix Valley"></div><h3>Croix Valley</h3><b data-i18n="cs16b">2 markets, gourmet &amp; food service</b><p data-i18n="cs16p">Importers and distributors for gourmet stores and food service identified and engaged in both markets. Ongoing.</p><small data-i18n="cs16w">Importer prospecting · food service</small></div>
+      <div class="card case reveal more" data-cat="food"><div class="case-top"><span class="eyebrow" data-i18n="cs17e">RTD +12% alcohol · USA / Mexico → Argentina</span><img class="brand" src="img/brand-phusion.png" alt="Phusion Projects (Four Loko)"></div><h3>Phusion Projects (Four Loko)</h3><b data-i18n="cs17b">Launch 3Q 2026</b><p data-i18n="cs17p">Convenience-store distributors and importers engaged; sanitary registration in process for Argentina, with launch planned for the third quarter of 2026.</p><small data-i18n="cs17w">Distributor engagement · regulatory</small></div>
+      <div class="card case reveal more" data-cat="food"><div class="case-top"><span class="eyebrow" data-i18n="cs18e">Gourmet foods · Spain → USA</span><img class="brand" src="img/brand-santateresa.png" alt="Santa Teresa Gourmet"></div><h3>Santa Teresa Gourmet</h3><b data-i18n="cs18b">Retail &amp; gourmet go-to-market</b><p data-i18n="cs18p">Artisan confectionery brand founded in 1860: go-to-market strategy for the U.S. retail and gourmet channel through a specialty importer.</p><small data-i18n="cs18w">Go-to-market strategy · importer</small></div>
+      <div class="card case reveal more" data-cat="food"><div class="case-top"><span class="eyebrow" data-i18n="cs19e">Chocolate · USA / Venezuela → LATAM</span><img class="brand" src="img/brand-franceschi.png" alt="Franceschi Chocolate"></div><h3>Franceschi Chocolate</h3><b data-i18n="cs19b">HoReCa &amp; specialty</b><p data-i18n="cs19p">Sixth-generation chocolate maker: specialized distribution and HoReCa (bakeries, ice cream parlors, coffee shops); closed a partnership with Argentina's top dessert-chocolate seller.</p><small data-i18n="cs19w">Specialty distribution · HoReCa · partnership</small></div>
+      <div class="card case reveal more" data-cat="food"><div class="case-top"><span class="eyebrow" data-i18n="cs20e">Specialty coffee · USA / Peru → USA Southeast</span><img class="brand" src="img/brand-nampi.png" alt="Nampi Foods (One Village Coffee)"></div><h3>Nampi Foods (One Village Coffee)</h3><b data-i18n="cs20b">3 natural chains</b><p data-i18n="cs20p">Specialty retailers as the entry point: listed with three natural and specialty grocery chains in the Southeast; expansion continues.</p><small data-i18n="cs20w">Specialty retail prospecting</small></div>
+      <div class="card case reveal more" data-cat="food"><div class="case-top"><span class="eyebrow" data-i18n="cs21e">Plant-based · Italy → USA, Colombia &amp; Central America</span><img class="brand" src="img/brand-intlfood.png" alt="International Food"></div><h3>International Food</h3><b data-i18n="cs21b">3 regions, branded + private label</b><p data-i18n="cs21p">Family-owned plant-based producer: branded and private-label expansion into the U.S. and Colombia, plus spot opportunities in Central America and Chile.</p><small data-i18n="cs21w">Multi-market prospecting · private label</small></div>
+      <div class="card case reveal more" data-cat="care"><div class="case-top"><span class="eyebrow" data-i18n="cs22e">Biotech ingredient · DR → USA &amp; Europe</span><img class="brand" src="img/brand-greencell.png" alt="The Green Cell (All In One)"></div><h3>The Green Cell (All In One)</h3><b data-i18n="cs22b">Prestige beauty brands &amp; OEMs</b><p data-i18n="cs22p">Brand ambassadors for a science-backed active: prospecting targeted at premium skincare and haircare brands and R&amp;D teams in the U.S. and Europe.</p><small data-i18n="cs22w">B2B prospecting · R&amp;D outreach</small></div>
+      <div class="card case reveal more" data-cat="care"><div class="case-top"><span class="eyebrow" data-i18n="cs23e">Specialized skin care · DR → USA &amp; DR</span><img class="brand" src="img/brand-naturalway.png" alt="Natural Way"></div><h3>Natural Way</h3><b data-i18n="cs23b">Pharmacy &amp; off-price chains</b><p data-i18n="cs23p">Mass-market introduction: launched with pharmacy, off-price and mass-merchandise chains in the U.S. and Puerto Rico. Expansion continues.</p><small data-i18n="cs23w">Mass-market launch</small></div>
+      <div class="card case reveal more" data-cat="home"><div class="case-top"><span class="eyebrow" data-i18n="cs24e">Pet food · Argentina → Costa Rica &amp; Guatemala</span><img class="brand" src="img/brand-baires.png" alt="Baires"></div><h3>Baires</h3><b data-i18n="cs24b">2 Central American markets</b><p data-i18n="cs24p">Dog and cat food made with advanced extrusion technology: distributor and retail projects in Central America through our partner network. Ongoing.</p><small data-i18n="cs24w">Distributor network · Central America</small></div>
+      <div class="card case reveal more" data-cat="home"><div class="case-top"><span class="eyebrow" data-i18n="cs25e">Feminine hygiene · Colombia → Guatemala</span><img class="brand" src="img/brand-produsa.png" alt="Produsa (Ellas)"></div><h3>Produsa (Ellas)</h3><b data-i18n="cs25b">New territory opened</b><p data-i18n="cs25p">Colombian intimate-protection leader taken into Guatemala through distributors and our Central America partner network.</p><small data-i18n="cs25w">Market entry · distributor network</small></div>
     </div>
+    <div style="display:flex;justify-content:center;margin-top:28px"><button type="button" class="btn btn-outline" id="moreCases" data-i18n="more_btn">See all 25 projects</button></div>
     <div class="network reveal">
       <small data-i18n="net">Channels we sell into across the Americas and Europe</small>
       <div class="logos">
@@ -470,6 +557,33 @@
   </div>
 </section>
 
+<section class="block" id="linkedin">
+  <div class="wrap">
+    <div class="head-row reveal">
+      <div class="head"><span class="eyebrow" data-i18n="li_eye">From the field</span><h2 class="h2" data-i18n="li_t">Latest on LinkedIn</h2></div>
+      <a href="https://www.linkedin.com/company/maquiavelosales" target="_blank" rel="noopener" class="btn btn-outline" style="justify-self:end" data-i18n="li_btn">Follow Maquiavelo</a>
+    </div>
+    <div class="li-grid">
+      <div class="li-card reveal">
+        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7498008488166461440" height="560" width="100%" frameborder="0" allowfullscreen="" title="LinkedIn post" loading="lazy"></iframe>
+        <a href="https://www.linkedin.com/posts/maquiavelosales_mexico-marketexpansion-cpg-activity-7498008488166461440-JmMB" target="_blank" rel="noopener" data-i18n="li_open">Open on LinkedIn →</a>
+      </div>
+      <div class="li-card reveal">
+        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7469746309374066689" height="560" width="100%" frameborder="0" allowfullscreen="" title="LinkedIn post" loading="lazy"></iframe>
+        <a href="https://www.linkedin.com/posts/maquiavelosales_mexico-expoantad2026-organyc-activity-7469746309374066689-34hQ" target="_blank" rel="noopener" data-i18n="li_open">Open on LinkedIn →</a>
+      </div>
+      <div class="li-card reveal">
+        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7483547753005006848" height="560" width="100%" frameborder="0" allowfullscreen="" title="LinkedIn post" loading="lazy"></iframe>
+        <a href="https://www.linkedin.com/posts/maquiavelosales_maquiavelo-internationalexpansion-salesstrategy-activity-7483547753005006848-GZqe" target="_blank" rel="noopener" data-i18n="li_open">Open on LinkedIn →</a>
+      </div>
+      <div class="li-card reveal">
+        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7444374658122014720" height="560" width="100%" frameborder="0" allowfullscreen="" title="LinkedIn post" loading="lazy"></iframe>
+        <a href="https://www.linkedin.com/posts/maquiavelosales_retail-relationship-buyers-activity-7444374658122014720-G_ks" target="_blank" rel="noopener" data-i18n="li_open">Open on LinkedIn →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="block" id="faq">
   <div class="wrap faq-grid">
     <div class="head reveal"><span class="eyebrow" data-i18n="fq_eye">Before you book</span><h2 class="h2" data-i18n="fq_t">Questions buyers of our service ask first.</h2></div>
@@ -487,21 +601,17 @@
     <div class="reveal">
       <h2 data-i18n="ct_t">Let's write your story.</h2>
       <p data-i18n="ct_p">Ready to take your brand to new markets? Tell us the market and the product; we'll tell you how we'd sell it.</p>
+      <a href="https://outlook.office.com/bookwithme/user/ad0e690f397043a7868079bd4b9964fb@maquiavelo.com/meetingtype/m6gWiFK4EkKyClo1vrA0qA2?anonymous&amp;ismsaljsauthenabled" target="_blank" rel="noopener" class="btn btn-coral" style="margin-top:28px"><span data-i18n="ct_btn">Book a 30-min call with Nicolás</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
     </div>
-    <!-- FORMULARIO: cuando tengas tu ID de Formspree, reemplazá TU_ID_FORMSPREE en la línea siguiente. Hasta entonces el botón abre el correo. -->
-    <form class="form reveal" id="contactForm" action="https://formspree.io/f/TU_ID_FORMSPREE" method="POST">
-      <strong data-i18n="fm_t">Book a 20-minute call</strong>
-      <input type="text" name="name" data-i18n-ph="fm_name" placeholder="Name" required>
-      <input type="email" name="email" data-i18n-ph="fm_email" placeholder="Work email" required>
-      <input type="text" name="market" data-i18n-ph="fm_market" placeholder="Which market are you looking at?">
-      <textarea name="message" rows="3" data-i18n-ph="fm_msg" placeholder="Product and a line about your brand"></textarea>
-      <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
-      <button type="submit" class="btn btn-coral" data-i18n="fm_btn">Request a call</button>
-      <small data-i18n="fm_alt">Or write to pilar@maquiavelo.com · nicolas@maquiavelo.com</small>
-    </form>
+    <div class="form reveal">
+      <strong data-i18n="fm_t">Prefer to write?</strong>
+      <a href="mailto:info@maquiavelo.com" style="font-size:22px;font-weight:700;color:var(--navy)">info@maquiavelo.com</a>
+      <span style="font-size:15px;color:var(--mute)" data-i18n="fm_alt">Tell us the market and the product; we reply within one business day.</span>
+      <span style="font-size:15px;color:var(--mute)">+1 347 352 0098</span>
+    </div>
   </div>
   <div class="wrap foot">
-    <div><img src="img/logo-white.png" alt="Maquiavelo" style="height:34px;width:auto;margin-bottom:10px"><div>Always Be Closing! · <a href="https://www.linkedin.com/company/maquiavelosales" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a> · +1 347 352 0098 · info@maquiavelo.com</div></div>
+    <div><img src="img/logo-white.png" alt="Maquiavelo" style="height:34px;width:auto;margin-bottom:10px"><div>Always Be Closing! · <a href="https://www.linkedin.com/company/maquiavelosales" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://www.instagram.com/maquiavelo.sales/" target="_blank" rel="noopener">Instagram</a> · +1 347 352 0098 · info@maquiavelo.com</div></div>
     <div class="foot-links">
       <a href="#units" data-i18n="nav1">Outsourced Sales Team</a>
       <a href="#units" data-tab="1" data-i18n="nav2">Strategy &amp; Growth</a>
@@ -521,8 +631,8 @@
     h_eye:"Equipo comercial tercerizado · Entrada a mercados · EE.UU. y LATAM",
     h_title:"Expandite a nuevos mercados.<br><span>Sin armar un equipo de ventas en cada uno.</span>",
     h_lead:"Un solo socio comercial, múltiples mercados. Nos integramos a tu organización como tu equipo de ventas internacional: vendedores locales, relación con compradores y un pipeline completo que ves todas las semanas.",
-    h_cta1:"Agendá una llamada de 20 min", h_cta2:"Ver casos de éxito",
-    h_cap:"Tu pipeline, totalmente visible: cada lead por etapa en MaqMailing, nuestra plataforma propia de CRM y prospección.",
+    h_cta1:"Agendá una llamada de 30 min", h_cta2:"Ver casos de éxito",
+    um_eye:"El grupo Maquiavelo", um_t:"Un socio. Tres puertas de entrada.", um_sub:"Ejecución comercial, estrategia de entrada a mercados y el software detrás de ambas, bajo un mismo techo. Hacé clic en una unidad para ir a ella.", hub_n1s:"01 · Ventas", hub_n1e:"Vendedores locales que venden por vos", hub_n2s:"02 · Estrategia", hub_n2e:"GO / WAIT / DO NOT ENTER", hub_n3s:"03 · Software", hub_n3e:"Plataforma de CRM y prospección",
     s1:"países con equipo propio", s2:"marcas llevadas a nuevos mercados", s3:"tasa promedio de respuesta en la prospección, en todas las cuentas", s4:"proyectos go-to-market documentados, 4 categorías",
     u_eye:"Tres unidades de negocio", u_title:"Un socio para cada etapa de tu expansión.",
     u_sub:"¿No sabés si el mercado vale la pena? Empezá por Strategy &amp; Growth. ¿Listo para vender? Conectá el equipo comercial. ¿Armás tu propio pipeline? Usá la plataforma con la que trabajamos. Hacé clic en una unidad para ver qué incluye.",
@@ -557,7 +667,7 @@
     r0t:"Tu producto es uno entre muchos", r0s:"Los brokers llevan marcas competidoras o adyacentes; la atención va a lo que vende más rápido.", r1t:"Poca o ninguna", r1s:"Actividad reportada informalmente, si acaso; las novedades llegan solo cuando un negocio está por cerrar.", r2t:"Una presentación, no un proceso", r2s:"Introducciones basadas en relaciones, con poca participación antes y después de la venta; un broker puede soltar una marca en cualquier momento.",
     m0t:"Ya operativo, exclusivo en tu categoría", m0s:"Ventas, gestión del CRM, investigación de mercado y back-office desde el día uno. Firmamos no competencia: nunca representamos a otro cliente en tu categoría y mercado.", m1t:"Cada lead, cada email, cada próximo paso", m1s:"Acceso directo a MaqMailing, llamadas semanales, grupo de WhatsApp y dashboards en vivo de etapa del funnel y tasas de respuesta.", m2t:"Riesgo compartido, compensación alineada", m2s:"Fee mensual fijo más comisión sobre ventas netas. Proyecto activo de 12 meses, revisión estratégica a los 3 meses, posventa continua.",
     cs_eye:"Casos de éxito", cs_t:"+50 marcas llevadas a nuevos mercados en EE.UU., LATAM y Europa.",
-    fl_all:"Todos", fl_food:"Alimentos y bebidas", fl_care:"Cuidado personal", fl_home:"Hogar", fl_mfg:"Manufactura por contrato",
+    fl_all:"Todos", fl_food:"Alimentos y bebidas · 16", fl_care:"Cuidado personal · 5", fl_home:"Hogar · 3", fl_mfg:"Manufactura por contrato · 1",
     cs1e:"Alimentos y bebidas · Guatemala → EE.UU.", cs1b:"&lt; 2 meses", cs1p:"Tras 15 años intentándolo a través de distribuidores, prospectamos supermercados y cadenas de conveniencia directamente. Del Frutal, Señorial, Pro y Raptor entraron a dos cadenas de tiendas de conveniencia del sureste de EE.UU. en menos de dos meses; el proyecto continúa con una red regional de distribuidores.", cs1w:"Prospección directa · reuniones con compradores · alta de distribuidores",
     cs2e:"Café · República Dominicana", cs2b:"8 cadenas en 6 meses", cs2p:"Lanzamiento en el mercado masivo: en seis meses la marca quedó listada en ocho de las principales cadenas de supermercados y clubes del país. Precios, surtido y negociación con compradores, de punta a punta.", cs2w:"Lanzamiento · precios · gestión de cuentas",
     cs3e:"Cuidado capilar multicultural · RD → EE.UU.", cs3b:"5 estados en 6 meses", cs3p:"Lanzado en tres cadenas de mercado masivo (farmacia y mercadería general) en Puerto Rico y EE.UU. en seis meses, y luego expandido a cinco estados: Florida, Arizona, California, Nevada y Texas.", cs3w:"Lanzamiento masivo · expansión multiestado",
@@ -567,19 +677,37 @@
     cs7e:"Cuidado íntimo · Italia → México", cs7b:"México, desde cero", cs7p:"Sin equipo comercial propio: abrimos las primeras conversaciones con las principales cadenas del país, armamos la red de distribuidores y ejecutamos el plan de expansión de largo plazo como su equipo comercial tercerizado.", cs7w:"Prospección en retail · red de distribuidores · plan de expansión",
     cs8e:"RTD +15% alcohol · EE.UU. → Brasil, RD, México", cs8b:"3 mercados, transición limpia", cs8p:"Distribuidores de tiendas de conveniencia e importadores activados en tres países. Tras la venta de la marca, hicimos una transición de siete meses al equipo local del nuevo dueño.", cs8w:"Activación de distribuidores · transición de 7 meses",
     cs9e:"Manufactura por contrato · Nonwovens · EE.UU.", cs9b:"Nuevas marcas en 6 meses", cs9p:"Capacidades de desarrollo, formulación y fabricación de marca privada presentadas a varias marcas de consumo de EE.UU. en seis meses.", cs9w:"Prospección B2B · alianzas con marcas",
+    cs10e:"Suplementos y nutrición · EE.UU.", cs10b:"3 fórmulas, alcance nacional", cs10p:"Sistema de nutrición deportiva construido sobre el legado de Reebok ([Ree]Energize, [Ree]Build, [Ree]Cover), presentado a retailers deportivos especializados y online en todo EE.UU.", cs10w:"Prospección en retail · e-commerce",
+    cs11e:"Alimentos para bebé, fruta congelada · RD → EE.UU.", cs11b:"Canal natural y premium", cs11p:"Pouches orgánicos para bebé llevados a EE.UU.: primero posicionamiento de marca, después una estrategia de marca privada y fruta congelada basada en las capacidades del cliente; listado en retailers premium, naturales y clubes.", cs11w:"Estrategia go-to-market · marca privada · listados",
+    cs12e:"Bebida funcional · EE.UU. / RD → RD", cs12b:"Todos los canales, un mercado", cs12p:"Marca de hidratación lanzada en República Dominicana: distribuidores identificados y activados en canal moderno, tradicional y BaReCa.", cs12w:"Mapeo de distribuidores · estrategia de canal",
+    cs13e:"Bebida de fruta · RD → EE.UU.", cs13b:"Entrada al gran retail de EE.UU.", cs13p:"Marca líder de jugos de República Dominicana: trabajamos con su distribuidor y representante en EE.UU. para introducir Rica en los principales retailers y asegurar la entrada en los canales clave. En curso.", cs13w:"Introducción en retail · apoyo al distribuidor",
+    cs14e:"Aceite de oliva y aceitunas · Grecia → Brasil", cs14b:"Supermercados de alta gama", cs14p:"Aceite de oliva griego premiado: tras años de esfuerzo propio en Brasil, usamos nuestra red con supermercados de alta gama para abrir nuevos listados. En curso.", cs14w:"Prospección en retail premium",
+    cs15e:"Aceite de palma · Ecuador → EE.UU. y Centroamérica", cs15b:"Marca privada para retailers", cs15p:"Principal fabricante de aceites y grasas de Ecuador: estrategia go-to-market para aceites envasados, orientada a marca privada con retailers masivos y de descuento.", cs15w:"Estrategia go-to-market · marca privada",
+    cs16e:"Condimentos gourmet · EE.UU. → RD y México", cs16b:"2 mercados, gourmet y food service", cs16p:"Importadores y distribuidores para tiendas gourmet y food service identificados y activados en ambos mercados. En curso.", cs16w:"Prospección de importadores · food service",
+    cs17e:"RTD +12% alcohol · EE.UU. / México → Argentina", cs17b:"Lanzamiento 3T 2026", cs17p:"Distribuidores de conveniencia e importadores activados; registro sanitario en trámite en Argentina, con lanzamiento previsto para el tercer trimestre de 2026.", cs17w:"Activación de distribuidores · regulatorio",
+    cs18e:"Alimentos gourmet · España → EE.UU.", cs18b:"Go-to-market retail y gourmet", cs18p:"Marca artesanal fundada en 1860: estrategia go-to-market para el canal retail y gourmet de EE.UU. a través de un importador especializado.", cs18w:"Estrategia go-to-market · importador",
+    cs19e:"Chocolate · EE.UU. / Venezuela → LATAM", cs19b:"HoReCa y canal especializado", cs19p:"Chocolatería de sexta generación: distribución especializada y HoReCa (panaderías, heladerías, cafeterías); cerramos una alianza con el principal vendedor de chocolate para postres de Argentina.", cs19w:"Distribución especializada · HoReCa · alianza",
+    cs20e:"Café de especialidad · EE.UU. / Perú → sureste de EE.UU.", cs20b:"3 cadenas naturales", cs20p:"Retailers especializados como punto de entrada: listado en tres cadenas de supermercados naturales y especializados del sureste; la expansión continúa.", cs20w:"Prospección en retail especializado",
+    cs21e:"Plant-based · Italia → EE.UU., Colombia y Centroamérica", cs21b:"3 regiones, marca propia + privada", cs21p:"Productor familiar de alimentos plant-based: expansión con marca propia y marca privada en EE.UU. y Colombia, más oportunidades puntuales en Centroamérica y Chile.", cs21w:"Prospección multimercado · marca privada",
+    cs22e:"Ingrediente biotecnológico · RD → EE.UU. y Europa", cs22b:"Marcas de belleza prestige y OEMs", cs22p:"Embajadores de marca de un activo con respaldo científico: prospección dirigida a marcas premium de cuidado de la piel y el cabello y a equipos de I+D en EE.UU. y Europa.", cs22w:"Prospección B2B · contacto con I+D",
+    cs23e:"Cuidado de la piel especializado · RD → EE.UU. y RD", cs23b:"Cadenas de farmacia y descuento", cs23p:"Introducción al mercado masivo: lanzado con cadenas de farmacia, descuento y mercadería general en EE.UU. y Puerto Rico. La expansión continúa.", cs23w:"Lanzamiento masivo",
+    cs24e:"Alimento para mascotas · Argentina → Costa Rica y Guatemala", cs24b:"2 mercados centroamericanos", cs24p:"Alimento para perros y gatos con tecnología de extrusión avanzada: proyectos con distribuidores y retail en Centroamérica a través de nuestra red de socios. En curso.", cs24w:"Red de distribuidores · Centroamérica",
+    cs25e:"Higiene femenina · Colombia → Guatemala", cs25b:"Nuevo territorio abierto", cs25p:"Líder colombiano en protección íntima llevado a Guatemala a través de distribuidores y de nuestra red de socios en Centroamérica.", cs25w:"Entrada al mercado · red de distribuidores",
+    more_btn:"Ver los 25 proyectos", less_btn:"Ver menos",
     net:"Canales en los que vendemos en América y Europa",
     ch1:"Retail masivo", ch2:"Supermercados", ch3:"Clubes de compra", ch4:"Farmacia", ch5:"Conveniencia", ch6:"Descuento y tiendas departamentales", ch7:"Especializado y natural", ch8:"E-commerce", ch9:"Distribuidores e importadores", ch10:"Food service y HoReCa",
     tm_eye:"Hechos para la expansión internacional", tm_t:"Equipos locales donde están tus compradores.",
     tm_p:"Business managers regionales en EE.UU., México, Centroamérica, el Caribe, Colombia, Brasil, Argentina y España, más una red de socios que extiende nuestro alcance en toda América.",
     lead:"Liderazgo", pil_r:"Cofundadora y CEO", pil_b:"Emprendedora serial con +15 años en expansión de mercados; +35 clientes atendidos y operaciones en +50 países de 4 continentes.", nic_r:"Cofundador e International Sales Manager", nic_b:"+7 años en expansión de mercados globales, con una sólida base en marketing estratégico.",
     women:"Empresa fundada por mujeres. Adherimos a los Principios para el Empoderamiento de las Mujeres (ONU Mujeres y Pacto Global de la ONU).",
+    li_eye:"Desde el terreno", li_t:"Lo último en LinkedIn", li_btn:"Seguir a Maquiavelo", li_open:"Abrir en LinkedIn →",
     fq_eye:"Antes de agendar", fq_t:"Las preguntas que primero hacen quienes contratan nuestro servicio.",
     q1:"¿Cómo cobran?", a1:"Un fee mensual fijo que cubre la infraestructura comercial dedicada, más una comisión sobre ventas netas que alinea nuestro éxito con el tuyo. La fórmula depende de si es marca privada o propia, canales, cantidad de países, complejidad del producto y tamaño del portafolio. Una vez completado el onboarding (primeras dos semanas), arrancan el proceso de venta y el fee mensual.",
     q2:"¿Cuánto dura el compromiso?", a2:"Un proyecto activo de 12 meses con revisión estratégica a los 3 meses, donde ajustamos con vos enfoque comercial, precios, comunicación, canales y leads. Los tiempos de venta después varían con el timing de cada lead. Las condiciones dependen de la preferencia de cada cliente.",
     q3:"¿Van a representar también a mis competidores?", a3:"No. Firmamos un acuerdo de no competencia: Maquiavelo no puede representar a otro cliente en la misma categoría y mercado.",
     q4:"¿Necesito Strategy &amp; Growth antes del equipo comercial?", a4:"No necesariamente. Si ya vendés en un mercado y necesitás alcance, empezamos a vender. Si entrás a un mercado donde nunca vendiste, el Market Entry Blueprint evita el error más caro: entrar a uno que no estaba listo para vos.",
-    ct_t:"Escribamos tu historia.", ct_p:"¿Listo para llevar tu marca a nuevos mercados? Contanos el mercado y el producto; te decimos cómo lo venderíamos.",
-    fm_t:"Agendá una llamada de 20 minutos", fm_name:"Nombre", fm_email:"Email de trabajo", fm_market:"¿Qué mercado estás mirando?", fm_msg:"Producto y una línea sobre tu marca", fm_btn:"Pedir una llamada", fm_alt:"O escribinos a pilar@maquiavelo.com · nicolas@maquiavelo.com"
+    ct_t:"Escribamos tu historia.", ct_btn:"Agendá 30 min con Nicolás", ct_p:"¿Listo para llevar tu marca a nuevos mercados? Contanos el mercado y el producto; te decimos cómo lo venderíamos.",
+    fm_t:"¿Preferís escribir?", fm_alt:"Contanos el mercado y el producto; respondemos dentro del día hábil."
   };
   var EN = {}, ENPH = {};
   document.querySelectorAll('[data-i18n]').forEach(function(el){ var k = el.getAttribute('data-i18n'); if (!(k in EN)) EN[k] = el.innerHTML; });
@@ -628,11 +756,18 @@
     document.querySelectorAll('[data-cmp-body]').forEach(function(p){ p.classList.toggle('on', p.getAttribute('data-cmp-body') === i); });
   }); });
 
+  // ---------- Ver todos los casos ----------
+  var moreBtn = document.getElementById('moreCases'), casesGrid = document.querySelector('.cases');
+  function moreLabel(){ var l = document.documentElement.lang; var all = casesGrid.classList.contains('all'); moreBtn.innerHTML = all ? (l==='es' ? ES.less_btn : 'Show fewer') : (l==='es' ? ES.more_btn : EN.more_btn); }
+  moreBtn.addEventListener('click', function(){ casesGrid.classList.toggle('all'); moreLabel(); if (!casesGrid.classList.contains('all')) document.getElementById('cases').scrollIntoView({behavior:'smooth'}); });
+  document.querySelectorAll('[data-lang]').forEach(function(b){ b.addEventListener('click', moreLabel); });
+
   // ---------- Filtros de casos ----------
   document.querySelectorAll('[data-filter]').forEach(function(b){ b.addEventListener('click', function(){
     var f = b.getAttribute('data-filter');
     document.querySelectorAll('[data-filter]').forEach(function(x){ x.classList.toggle('on', x === b); });
     document.querySelectorAll('.case').forEach(function(c){ c.classList.toggle('hide', !(f === 'all' || c.getAttribute('data-cat') === f)); });
+    casesGrid.classList.toggle('all', f !== 'all'); moreBtn.style.display = f === 'all' ? '' : 'none'; moreLabel();
   }); });
 
   // ---------- FAQ ----------
@@ -649,15 +784,6 @@
     els.forEach(function(el){ io.observe(el); });
   } else { els.forEach(function(el){ el.classList.add('in'); }); }
 
-  // ---------- Formulario: sin Formspree configurado, abre el correo ----------
-  var form = document.getElementById('contactForm');
-  form.addEventListener('submit', function(ev){
-    if (form.action.indexOf('TU_ID_FORMSPREE') === -1) return; // Formspree configurado: envío normal
-    ev.preventDefault();
-    var d = new FormData(form);
-    var body = 'Name: ' + d.get('name') + '\nEmail: ' + d.get('email') + '\nMarket: ' + d.get('market') + '\n\n' + d.get('message');
-    location.href = 'mailto:pilar@maquiavelo.com,nicolas@maquiavelo.com?subject=' + encodeURIComponent('Call request from maquiavelo.com · ' + d.get('name')) + '&body=' + encodeURIComponent(body);
-  });
 })();
 </script>
 
